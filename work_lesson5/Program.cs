@@ -9,9 +9,9 @@ namespace work_lesson5
 
 
 
-    class Program
+    class Run
     {
-        static void Main(string[] args)
+         void run()
         {
             List<OrderItem> orderItems1 = new List<OrderItem>();
             orderItems1.Add(new OrderItem("胡椒", 25.8, 10));
@@ -41,6 +41,7 @@ namespace work_lesson5
 
             Order order4 = new Order("Jobs", orderItems4, "323");
 
+            /*
             OrderService service = new OrderService();
 
             service.addOrder(order1);
@@ -59,7 +60,7 @@ namespace work_lesson5
             service.queryByName("Jobs");
 
             Console.ReadKey();
-
+            */
         }
     }
 }

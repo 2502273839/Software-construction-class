@@ -16,7 +16,7 @@ using System.Threading.Tasks;
 （4）订单、订单明细、客户、货物等类添加ToString方法，用来显示订单信息。
 （5）OrderService提供排序方法对保存的订单进行排序。默认按照订单号排序，也可以使用Lambda表达式进行自定义排序。
 */
-namespace work_lesson5
+namespace OrderWinform
 {
    public class Order
     {
@@ -25,7 +25,7 @@ namespace work_lesson5
         public DateTime DateTime { get; set; }
         public double TotalCost { get; set; }
 
-        public List<OrderItem> items = new List<OrderItem>();
+        public List<OrderItem> items { get;set; }
 
 
         //order构造函数
@@ -60,7 +60,7 @@ namespace work_lesson5
 
     }
 
-    class OrderItem
+   public class OrderItem
     {
         public String ProductName { get; set; }
         public double Price { get; set; }
@@ -87,7 +87,7 @@ namespace work_lesson5
         }
 
     }
-    class RepeatException:Exception
+  public  class RepeatException:Exception
     {
         private String error = "添加失败！订单已存在";
         public RepeatException()
@@ -96,9 +96,14 @@ namespace work_lesson5
         }
     }
 
-    class OrderService
+   public class OrderService
     {
         List<Order> orders = new List<Order>();
+
+        public OrderService(List<Order> orders)
+        {
+            this.orders = orders;
+        }
 
         public void addOrder(Order order)
         {
@@ -148,6 +153,15 @@ namespace work_lesson5
             }
             Console.WriteLine(res);
 
+        }
+
+        public IOrderedEnumerable<Order> query(String name)
+        {
+            var results = from order in orders
+                          where order.Customer == name
+                          orderby order.TotalCost
+                          select order;
+            return results;
         }
 
         public void queryByName(String name)
